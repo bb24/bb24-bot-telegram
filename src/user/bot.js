@@ -1,4 +1,5 @@
 import DB       from 'lowdb'
+import FileSync from 'lowdb/adapters/FileSync'
 import TeleBot  from 'telebot'
 import {token}  from './token.js'
 import Messages from './messages.js'
@@ -11,7 +12,9 @@ class UserBot {
     if (typeof(token) == 'undefined' || token == '')
       throw new Error('Error: You need to provide the bot token!')
 
-    _.db        = new DB('./storage/users.json')
+    const adapter = new FileSync('./storage/users.json')
+
+    _.db        = new DB(adapter)
     _.bot       = new TeleBot(token)
     _.webhook   = new WebHook()
     _.messages  = new Messages()

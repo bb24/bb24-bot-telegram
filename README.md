@@ -27,17 +27,21 @@ Before you deploy the application, please makes sure that you have run
 ```
 k2d2-telegram-bot
 ├── dist
-│   |── bitrix24
+│   ├── bitrix24
 │   └── user
 ├── node_modules
 |   └── ...
-└── src
-    └── user
+├── src
+│   ├── bitrix24
+│   └── user
+└── storage
 ```
 
 All of the bot source code is located in `src/` directory.
 We are using ES6. So, the ES6 will be compiled in `dist/`.
 The bot dependencies saved in `node_modules/` directory.
+
+Each Telegram username will be saved in `storage/users.json`.
 
 ## TODO
 - [x] Create a Telegram bot

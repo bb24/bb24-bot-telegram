@@ -22,7 +22,7 @@ var UserMessages = function UserMessages() {
       case '/keluhan':
         return 'Setelah Anda menjalankan perintah /keluhan, kami akan ' + 'meminta Anda menulis semua keluhan dan mengirimkannya ' + 'kembali.';
       default:
-        return 'Topik yang diminta tidak ada.';
+        return 'Topik yang diminta tidak ada.\n' + '\n' + 'Apabila Anda mencari bantuan dengan topik perintah, ' + 'pastikan menulis seperti di bawah.\n' + '\n' + '/bantuan /namaPerintah\n' + '\n' + 'Contoh: /bantuan /keluhan';
     }
   };
 
@@ -30,9 +30,11 @@ var UserMessages = function UserMessages() {
 
   _.saveError = 'Kami tidak dapat menyimpannya.\n' + 'Sepertinya terjadi kesalahan pada <i>server</i> kami.\n' + 'Cobalah untuk mengirim ulang setelah beberapa saat.';
 
-  _.askGripe = 'Silakan tulis dan kirim keluhan Anda secara lengkap.';
+  _.askGripe = 'Silakan tulis dan kirim keluhan Anda secara lengkap.\n' + '\n' + 'Untuk membatalkan, kirim <b>batal</b> tanpa huruf kapital.';
 
   _.savedGripe = 'Keluhan Anda sudah kami terima.';
+
+  _.cancelAction = 'Aksi dibatalkan.';
 
   _.unknownCommand = function (cmd) {
     return 'Perintah <b>' + cmd + '</b> tidak dikenali...';

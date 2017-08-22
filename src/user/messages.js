@@ -39,7 +39,14 @@ class UserMessages {
                  + 'meminta Anda menulis semua keluhan dan mengirimkannya '
                  + 'kembali.'
           default:
-            return 'Topik yang diminta tidak ada.'
+            return 'Topik yang diminta tidak ada.\n'
+                 + '\n'
+                 + 'Apabila Anda mencari bantuan dengan topik perintah, '
+                 + 'pastikan menulis seperti di bawah.\n'
+                 + '\n'
+                 + '/bantuan /namaPerintah\n'
+                 + '\n'
+                 + 'Contoh: /bantuan /keluhan'
         }
       }
 
@@ -53,10 +60,15 @@ class UserMessages {
       + 'Cobalah untuk mengirim ulang setelah beberapa saat.'
 
     _.askGripe
-      = 'Silakan tulis dan kirim keluhan Anda secara lengkap.'
+      = 'Silakan tulis dan kirim keluhan Anda secara lengkap.\n'
+      + '\n'
+      + 'Untuk membatalkan, kirim <b>batal</b> tanpa huruf kapital.'
 
     _.savedGripe
       = 'Keluhan Anda sudah kami terima.'
+
+    _.cancelAction
+      = 'Aksi dibatalkan.'
 
     _.unknownCommand
       = (cmd) =>

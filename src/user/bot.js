@@ -217,7 +217,7 @@ class UserBot {
         _.prompt.ask     = true
         _.prompt.command = _.data.msg.content.value
 
-        return _.data.msg.fn.reply.text(_.messages.askGripe)
+        return _.bot.sendMessage(_.data.id, _.messages.askGripe, _.parseHTML)
         break
       default:
         return _.bot.sendMessage(
@@ -248,8 +248,6 @@ class UserBot {
         }
       }
 
-      console.log(msg)
-
       _.data.dbId = _.db.get('users')
                         .find({username: _.data.username})
                         .value()
@@ -267,7 +265,13 @@ class UserBot {
             switch(_.prompt.command)
             {
               case '/keluhan':
-                _.saveGripe()
+                if (_.prompt.value == 'batal')
+                {
+                  _.prompt.ask = false
+                  return _.data.msg.fn.reply.text(_.messages.cancelAction)
+                }
+                else
+                  _.saveGripe()
                 break
               default:
                 return _.data.msg.fn.reply.text(_.messages.unknow)

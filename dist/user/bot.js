@@ -6,6 +6,10 @@ var _lowdb = require('lowdb');
 
 var _lowdb2 = _interopRequireDefault(_lowdb);
 
+var _FileSync = require('lowdb/adapters/FileSync');
+
+var _FileSync2 = _interopRequireDefault(_FileSync);
+
 var _telebot = require('telebot');
 
 var _telebot2 = _interopRequireDefault(_telebot);
@@ -32,7 +36,9 @@ var UserBot = function () {
 
     if (typeof _token.token == 'undefined' || _token.token == '') throw new Error('Error: You need to provide the bot token!');
 
-    _.db = new _lowdb2.default('./storage/users.json');
+    var adapter = new _FileSync2.default('./storage/users.json');
+
+    _.db = new _lowdb2.default(adapter);
     _.bot = new _telebot2.default(_token.token);
     _.webhook = new _webhook2.default();
     _.messages = new _messages2.default();
@@ -209,7 +215,7 @@ var UserBot = function () {
           _.prompt.ask = true;
           _.prompt.command = _.data.msg.content.value;
 
-          return _.data.msg.fn.reply.text(_.messages.askGripe);
+          return _.bot.sendMessage(_.data.id, _.messages.askGripe, _.parseHTML);
           break;
         default:
           return _.bot.sendMessage(_.data.id, _.messages.unknownCommand(_.data.msg.content.value), _.parseHTML);
@@ -237,8 +243,6 @@ var UserBot = function () {
           }
         };
 
-        console.log(msg);
-
         _.data.dbId = _.db.get('users').find({ username: _.data.username }).value();
         _.data.dbId = typeof _.data.dbId == 'undefined' ? -1 : _.data.dbId.alias;
 
@@ -251,7 +255,10 @@ var UserBot = function () {
               _.prompt.value = _.data.msg.content;
               switch (_.prompt.command) {
                 case '/keluhan':
-                  _.saveGripe();
+                  if (_.prompt.value == 'batal') {
+                    _.prompt.ask = false;
+                    return _.data.msg.fn.reply.text(_.messages.cancelAction);
+                  } else _.saveGripe();
                   break;
                 default:
                   return _.data.msg.fn.reply.text(_.messages.unknow);
